@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Advertisement</title>
-</head>
-<body>
-<h1>Профессия Продюсер игровых проектов</h1>
-<div>Курс на <a href="https://skillbox.ru/course/profession-game-projects-producer/">Skillbox</a></div>
-<div>Стоимость решений: 1100р.</div>
-<div>
-    <img src="https://248006.selcdn.ru/LandGen/desktop_2_fa7abe8d0848a6ae9287052e080fbb5e47fce407.webp"
-         style="width: 200px; max-height: 150px;">
-</div>
-</body>
-</html>
+{% extends 'advertisements/base.html' %}
+
+{% block title %}Профессия Продюсер игровых проектов{% endblock title %}
+
+<h1>{% block header %}Профессия Продюсер игровых проектов{% endblock header %}</h1>
+
+{% block content%}
+<div>Курс на <a href="https://skillbox.ru/course/profession-marketolog/">Skillbox</a></div>
+<div>Стоимость решений: 1000р.</div>
+<div><img src="https://248006.selcdn.ru/LandGen/desktop_2_fa7abe8d0848a6ae9287052e080fbb5e47fce407.webp"
+         style="width: 200px; max-height: 150px;"></div>
+{% endblock content %}
