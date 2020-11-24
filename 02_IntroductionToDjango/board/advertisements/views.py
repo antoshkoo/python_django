@@ -1,4 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.views import View
 
 
 def advertisements_list(request, *args, **kwargs):
@@ -46,10 +48,15 @@ def categories(request, *args, **kwargs):
     return render(request, 'advertisements/categories.html', {'categories': categories})
 
 
-def regions(request, *args, **kwargs):
-    regions = ['Москва',
-               'Казань',
-               'Новосибирск',
-               'Владивосток',
-               'Сочи']
-    return render(request, 'advertisements/regions.html', {'regions': regions})
+class Regions(View):
+
+    def get(self, request):
+        regions = ['Москва',
+                        'Казань',
+                        'Новосибирск',
+                        'Владивосток',
+                        'Сочи']
+        return render(request, 'advertisements/regions.html', {'regions': regions})
+
+    def post(self, request):
+        return HttpResponse('Region created')
