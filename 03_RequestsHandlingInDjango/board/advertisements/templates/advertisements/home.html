@@ -1,0 +1,27 @@
+{% extends 'advertisements/base.html' %}
+
+{% block title %}Форма{% endblock %}
+
+{% block header %}Форма{% endblock %}
+
+{% block content %}
+    <form method="post" action="{%  url 'home' %}">
+    {% csrf_token %}
+    <div><input name="text" placeholder="Поиск"></div>
+    <div>
+        <select name="region">
+        {% for region in choice_regions %}
+            <option value="{{ forloop.counter }}">{{ region }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div>
+        <select name="category">
+        {% for category in choice_categories %}
+            <option value="{{ forloop.counter }}">{{ category }}</option>
+        {% endfor %}
+        </select>
+    </div>
+        <button type="submit">Отправить</button>
+    </form>
+{% endblock %}

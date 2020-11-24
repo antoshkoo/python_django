@@ -1,0 +1,10 @@
+{% extends 'advertisements/base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block header %}Контакты{% endblock %}
+{% block content %}
+    <p>Адрес: {{ address }}</p>
+    <p>Телефон: {{ phone }}</p>
+    <p>email: <a href="mailto:{{ email }}">{{ email }}</a></p>
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import TemplateView
 
 
 def advertisements_list(request, *args, **kwargs):
@@ -32,13 +33,26 @@ def advertisement_5(request, *args, **kwargs):
     return render(request, 'advertisements/advertisement_5.html', {})
 
 
-def contacts(request, *args, **kwargs):
-    return render(request, 'advertisements/contacts.html', {'phone': '8-800-708-19-45', 'email': 'sales@company.com'})
+class Contacts(TemplateView):
+    template_name = 'advertisements/contacts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['phone'] = '8-800-708-19-45'
+        context['email'] = 'sales@company.com'
+
+        return context
 
 
-def about(request, *args, **kwargs):
-    return render(request, 'advertisements/about.html', {'name': 'Бесплатные объявления',
-                                                         'description': 'Бесплатные объявления в вашем городе!'})
+class About(TemplateView):
+    template_name = 'advertisements/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['name'] = 'Бесплатные объявления'
+        context['description'] = 'Бесплатные объявления в вашем городе!'
+
+        return context
 
 
 def categories(request, *args, **kwargs):
@@ -52,10 +66,10 @@ class Regions(View):
 
     def get(self, request):
         regions = ['Москва',
-                        'Казань',
-                        'Новосибирск',
-                        'Владивосток',
-                        'Сочи']
+                   'Казань',
+                   'Новосибирск',
+                   'Владивосток',
+                   'Сочи']
         return render(request, 'advertisements/regions.html', {'regions': regions})
 
     def post(self, request):
