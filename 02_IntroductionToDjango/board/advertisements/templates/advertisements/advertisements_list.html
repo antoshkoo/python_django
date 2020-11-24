@@ -5,10 +5,10 @@
 <h1>{% block header %}Прошел все курсы на SkillBox. Продаю готовые домашние задания:{% endblock header %}</h1>
 {% block content%}
 <ul>
-    <li><a href="advertisements/1/">Профессия Python-разработчик</a></li>
-    <li><a href="advertisements/2/">Профессия Интернет-маркетолог</a></li>
-    <li><a href="advertisements/3/">Профессия Графический дизайнер</a></li>
-    <li><a href="advertisements/4/">Профессия UX/UI-дизайнер</a></li>
-    <li><a href="advertisements/5/">Профессия Продюсер игровых проектов</a></li>
+    <li><a href="{% url 'advertisements_detail_1' %}">Профессия Python-разработчик</a></li>
+    <li><a href="{% url 'advertisements_detail_2' %}">Профессия Интернет-маркетолог</a></li>
+    <li><a href="{% url 'advertisements_detail_3' %}">Профессия Графический дизайнер</a></li>
+    <li><a href="{% url 'advertisements_detail_4' %}">Профессия UX/UI-дизайнер</a></li>
+    <li><a href="{% url 'advertisements_detail_5' %}">Профессия Продюсер игровых проектов</a></li>
 </ul>
 {% endblock content %}
