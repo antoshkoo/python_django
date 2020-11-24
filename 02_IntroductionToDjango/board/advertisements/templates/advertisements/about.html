@@ -1,0 +1,9 @@
+{% extends 'advertisements/base.html' %}
+
+{% block title %}О компании{% endblock title %}
+
+<h1>{% block header %}{{ name }}{% endblock header %}</h1>
+
+{% block content%}
+<div>{{ description }}</div>
+{% endblock content %}

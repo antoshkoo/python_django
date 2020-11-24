@@ -1,0 +1,13 @@
+{% extends 'advertisements/base.html' %}
+
+{% block title %}Регионы{% endblock title %}
+
+<h1>{% block header %}Регионы{% endblock header %}</h1>
+
+{% block content%}
+<ul>
+    {% for region in regions %}
+    <li>{{ region }}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

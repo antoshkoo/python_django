@@ -1,0 +1,13 @@
+{% extends 'advertisements/base.html' %}
+
+{% block title %}Категории{% endblock title %}
+
+<h1>{% block header %}Категории{% endblock header %}</h1>
+
+{% block content%}
+<ul>
+    {% for category in categories %}
+    <li>{{ category }}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}
