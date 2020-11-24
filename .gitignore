@@ -133,3 +133,4 @@ dmypy.json
 
 # Jetbrains Intellij IDEA
 .idea/
+/02_IntroductionToDjango/board/advertisements/test.py
