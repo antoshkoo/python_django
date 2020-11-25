@@ -1,13 +1,17 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 # from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.views.generic.base import View
 
+counter = 0
 
+
+@method_decorator(csrf_exempt, name='dispatch')
 class Advertisements(View):
-    counter = 0
-    
+
     def get(self, request):
         advertisements = [
             'Мастер на час',
@@ -21,10 +25,11 @@ class Advertisements(View):
         ]
         return render(request, 'advertisements/advertisement_list.html', {'adv': advertisements,
                                                                           'adv2': advertisements_1,
-                                                                          'counter': self.counter})
+                                                                          'counter': counter})
 
-    def post(self):
-        self.counter += 1
+    def post(self, request):
+        global counter
+        counter += 1
         return HttpResponse('Новая запись успешно добавлена.')
 
 
