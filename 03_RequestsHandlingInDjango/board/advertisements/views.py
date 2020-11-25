@@ -16,15 +16,11 @@ class Advertisements(View):
         advertisements = [
             'Мастер на час',
             'Выведение из запоя',
-            'Услуги экскаватора-погрузчика, гидромолота, ямобура'
-        ]
-        advertisements_1 = [
-            'Мастер на час',
-            'Выведение из запоя',
-            'Услуги экскаватора-погрузчика, гидромолота, ямобура'
+            'Услуги экскаватора-погрузчика, гидромолота, ямобура',
+            'Кеды Converse',
+            'Крепления Union Force',
         ]
         return render(request, 'advertisements/advertisement_list.html', {'adv': advertisements,
-                                                                          'adv2': advertisements_1,
                                                                           'counter': counter})
 
     def post(self, request):
