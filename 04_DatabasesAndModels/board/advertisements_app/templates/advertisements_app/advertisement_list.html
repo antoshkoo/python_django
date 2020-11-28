@@ -1,0 +1,11 @@
+{% load humanize %}
+<h1>Объявления</h1>
+<ul>
+{% for advertisement in advertisements %}
+    <li><a href="{% url 'advertisement-detail' advertisement.id %}">{{ advertisement.title }}</a>
+        | {{ advertisement.price|intcomma }}₽ | {{ advertisement.category }}
+    </li>
+{% empty %}
+    <li>Нет объявлений</li>
+{% endfor %}
+</ul>

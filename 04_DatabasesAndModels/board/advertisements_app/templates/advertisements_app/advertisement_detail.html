@@ -1,0 +1,21 @@
+{% load humanize %}
+<h1>{{ advertisement.title }}</h1>
+<ul>
+{% if advertisement %}
+    <li>Описание: {{ advertisement.description }}</li>
+    <li>Тип объявления: {{ advertisement.type }}</li>
+    <li>Цена: {{ advertisement.price|intcomma }}₽ или {{ advertisement.usd_conversion|intcomma }}</li>
+    <li>Категория: {{ advertisement.category }}</li>
+    <li>Дата публикации: {{ advertisement.created_at }}</li>
+    <li>Статус: {{ advertisement.status }}</li>
+    <li>Контактная информация:
+        <ul>
+            <li>Телефон: {{ advertisement.author.phone }}</li>
+            <li>email: <a href="mailto:{{ advertisement.author.email }}">{{ advertisement.author.email }}</a></li>
+        </ul>
+    </li>
+    <li>Количество просмотров: {{ advertisement.views_counter }}</li>
+{% else %}
+    <li>Нет объявлений</li>
+{% endif %}
+</ul>
