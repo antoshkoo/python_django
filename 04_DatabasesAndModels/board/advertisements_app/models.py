@@ -1,7 +1,6 @@
 import datetime
 
 from django.db import models
-import requests
 from django.utils import timezone
 
 
@@ -10,7 +9,8 @@ class Advertisement(models.Model):
     description = models.TextField(default=None, verbose_name='Описание')
     price = models.FloatField(default=0, verbose_name='Цена')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    ended_at = models.DateTimeField(default=(timezone.now() + datetime.timedelta(days=30)), verbose_name='Дата окончания')
+    ended_at = models.DateTimeField(default=(timezone.now() + datetime.timedelta(days=30)),
+                                    verbose_name='Дата окончания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     views_count = models.PositiveIntegerField(verbose_name='Количество просмотров', default=0)
     type = models.ForeignKey('AdvertisementType', default=None, null=True, blank=True, related_name='type',
@@ -28,15 +28,6 @@ class Advertisement(models.Model):
     class Meta:
         db_table = 'advertisements'
         ordering = ['title']
-
-    def usd_conversion(self):
-        responce = requests.get('https://www.cbr-xml-daily.ru/daily_json.js')
-        if responce.status_code == 200:
-            data = responce.json()
-            usd_currency = data['Valute']['USD']['Value']
-            return f'{self.price // usd_currency}$'
-        else:
-            return f'{self.price // 75}$'
 
     def views_counter(self):
         advertisement = Advertisement.objects.get(id=self.pk)
@@ -84,4 +75,16 @@ class AdvertisementCategory(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'advertisement_categories'
+        db_table = 'advertisement_category'
+
+
+class AdvertisementCurrency(models.Model):
+    date = models.DateTimeField(verbose_name='Дата обновления')
+    currency_name = models.CharField(max_length=5, verbose_name='Валюта')
+    currency = models.FloatField(verbose_name='Курс')
+
+    def __str__(self):
+        return self.currency
+
+    class Meta:
+        db_table = 'advertisement_currency'

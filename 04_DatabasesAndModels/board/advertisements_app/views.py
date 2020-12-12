@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView
+
 from .models import Advertisement
 
 
@@ -11,4 +12,3 @@ class AdvertisementListView(ListView):
 class AdvertisementDetailView(DetailView):
     model = Advertisement
     context_object_name = 'advertisement'
-
