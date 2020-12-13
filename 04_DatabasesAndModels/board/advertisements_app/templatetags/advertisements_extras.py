@@ -12,4 +12,4 @@ def usd_price(value):
 
 @register.simple_tag
 def currency_date():
-    return f'(По курсу на {last_currency.date.strftime("%d-%m-%Y")} - {round(last_currency.currency, 2)}₽)'
+    return f'(по курсу на {last_currency.date.strftime("%d-%m-%Y")} - {round(last_currency.currency, 2)}₽)'

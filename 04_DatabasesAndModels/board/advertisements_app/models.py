@@ -79,7 +79,7 @@ class AdvertisementCategory(models.Model):
 
 
 class AdvertisementCurrency(models.Model):
-    date = models.DateTimeField(verbose_name='Дата обновления')
+    date = models.DateField(verbose_name='Дата обновления')
     currency_name = models.CharField(max_length=5, verbose_name='Валюта')
     currency = models.FloatField(verbose_name='Курс')
 
