@@ -1,4 +1,3 @@
-import datetime
 import requests
 from django.core.management.base import BaseCommand
 from django.utils import timezone
@@ -14,10 +13,11 @@ class Command(BaseCommand):
         if responce.status_code == 200:
             data = responce.json()
             usd_currency = data['Valute']['USD']['Value']
+            obj, created = AdvertisementCurrency.objects.get_or_create(
+                date=timezone.now(),
+                defaults={'currency_name': 'USD',
+                          'currency': usd_currency},
+            )
+            return f'Курс обновлен'
         else:
             return f'Ошибка парсинга'
-        obj, created = AdvertisementCurrency.objects.get_or_create(
-            date=timezone.now(),
-            defaults={'currency_name': 'USD',
-                      'currency': usd_currency},
-        )
