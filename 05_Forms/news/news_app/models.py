@@ -6,7 +6,7 @@ class News(models.Model):
         (1, 'Да'),
         (0, 'Нет'),
     )
-    name = models.CharField(max_length=1000, db_index=True, verbose_name='news')
+    name = models.CharField(max_length=1000, db_index=True, verbose_name='Заголовок')
     body = models.TextField(verbose_name='Текст новости')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -15,11 +15,14 @@ class News(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['-created_at']
+
 
 class NewsComments(models.Model):
     user_name = models.CharField(max_length=20, blank=False, verbose_name='Пользователь')
     comment_text = models.TextField(blank=False, verbose_name='Текст комментария')
-    news = models.ForeignKey('News', on_delete=models.CASCADE)
+    news = models.ForeignKey('News', related_name='comments', on_delete=models.CASCADE)
 
 # Создайте новостной сайт. Он должен уметь отображать новости и поддерживать возможность их комментировать.
 # Создайте модель Новость с полями: название, содержание, дата создания, дата редактирования, флаг активности.

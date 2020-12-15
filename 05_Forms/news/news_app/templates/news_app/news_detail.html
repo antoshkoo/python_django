@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ news.name }}</title>
+</head>
+<body>
+    <h1>{{ news.name }}</h1>
+    <div>{{ news.created_at }}</div>
+    <div>{{ news.body }}</div>
+    <hr>
+
+    <h3>Добавить комментарий:</h3>
+    <form action="/news/{{ news.id }}/comment/" method="post">
+        {% csrf_token %}
+        <p>{{ comment_form.user_name}}</p>
+        <p>{{ comment_form.comment_text }}</p>
+        <input type="hidden" name="news" value="{{ news.id }}">
+        <button type="submit">Добавить комментарий</button>
+    </form>
+    <hr>
+
+    <h3>Комментарии:</h3>
+    {% for comment in comments  %}
+    <p>{{ comment.user_name }}: <blockquote><i>{{ comment.comment_text }}</i></blockquote></p>
+    {% endfor %}
+</body>
+</html>
