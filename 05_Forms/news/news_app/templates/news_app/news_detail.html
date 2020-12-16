@@ -21,7 +21,7 @@
     <hr>
 
     <h3>Комментарии:</h3>
-    {% for comment in comments  %}
+    {% for comment in news.comments.all %}
     <p>{{ comment.user_name }}: <blockquote><i>{{ comment.comment_text }}</i></blockquote></p>
     {% endfor %}
 </body>

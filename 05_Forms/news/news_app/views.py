@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.views import View
 from django.views.generic import DetailView, ListView
 
@@ -18,9 +19,7 @@ class NewsDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        comments = self.object.comments.all()
         comment_form = NewsCommentsForm
-        context['comments'] = comments
         context['comment_form'] = comment_form
         return context
 
@@ -36,7 +35,7 @@ class NewsCreateFormView(View):
 
         if news_form.is_valid():
             News.objects.create(**news_form.cleaned_data)
-            return HttpResponseRedirect('/news/')
+            return HttpResponseRedirect(reverse('news-list'))
 
 
 class NewsEditFormView(View):
@@ -52,7 +51,7 @@ class NewsEditFormView(View):
 
         if news_form.is_valid():
             news.save()
-        return HttpResponseRedirect(f'/news/{news_id}/')
+        return HttpResponseRedirect(reverse('news-detail', args=[news_id]))
 
 
 class NewsCommentsFormView(View):
@@ -61,4 +60,4 @@ class NewsCommentsFormView(View):
         comment_form = NewsCommentsForm(request.POST)
         if comment_form.is_valid():
             NewsComments.objects.create(**comment_form.cleaned_data)
-            return HttpResponseRedirect(f'/news/{news_id}/')
+            return HttpResponseRedirect(reverse('news-detail', args=[news_id]))
