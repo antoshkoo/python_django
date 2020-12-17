@@ -22,7 +22,7 @@ class News(models.Model):
 class NewsComments(models.Model):
     user_name = models.CharField(max_length=20, blank=False, verbose_name='Пользователь')
     comment_text = models.TextField(blank=False, verbose_name='Текст комментария')
-    news = models.ForeignKey('News', related_name='comments', on_delete=models.CASCADE)
+    news = models.ForeignKey('News', related_name='comments', on_delete=models.CASCADE, verbose_name='К новости')
 
 # Создайте новостной сайт. Он должен уметь отображать новости и поддерживать возможность их комментировать.
 # Создайте модель Новость с полями: название, содержание, дата создания, дата редактирования, флаг активности.
