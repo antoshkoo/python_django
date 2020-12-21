@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <div>Привет, {{ user.username }}! <a href="{% url 'logout' %}">Выйти</a></div>
+{% else %}
+<div>Вы не авторизованы. <a href="{% url 'login' %}">Войти</a></div>
+{% endif %}
+<h1>Hello World!</h1>
+</body>
+</html>
