@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ news.name }}</title>
-</head>
-<body>
-    <h1>{{ news.name }}</h1>
+{% extends 'base.html' %}
+{% block title %}{{ news.name }}{% endblock %}
+{% block h1 %}{{ news.name }}{% endblock %}
+{% block content %}
     <div>{{ news.created_at }}</div>
     <div>{{ news.body }}</div>
     <hr>
@@ -13,16 +9,21 @@
     <h3>Добавить комментарий:</h3>
     <form action="/news/{{ news.id }}/comment/" method="post">
         {% csrf_token %}
-        <p>{{ comment_form.user_name}}</p>
+        {% if user.username %} <input type="hidden" name="user" value="{{ user.id }}">
+        {% else %}<p>{{ comment_form.user_name}}</p>
+        {% endif %}
         <p>{{ comment_form.comment_text }}</p>
         <input type="hidden" name="news" value="{{ news.id }}">
         <button type="submit">Добавить комментарий</button>
     </form>
     <hr>
 
+    {% if news.comments.exists %}
     <h3>Комментарии:</h3>
     {% for comment in news.comments.all %}
-    <p>{{ comment.user_name }}: <blockquote><i>{{ comment.comment_text }}</i></blockquote></p>
+        <p>{% firstof comment.user comment.user_name %}{% if comment.user_name %} (Аноним){% endif %}:
+        <blockquote><i>{{ comment.comment_text }}</i></blockquote>
+        </p>
     {% endfor %}
-</body>
-</html>
+    {% endif %}
+{% endblock %}

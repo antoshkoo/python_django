@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Редактирование новости</title>
-</head>
-<body>
-    <h1>Редактирование новости</h1>
+{% extends 'base.html' %}
+{% block title %}Редактировать новость{% endblock %}
+{% block h1 %}Редактировать новость{% endblock %}
+{% block content %}
     <form action="/news/{{ news_id }}/edit/" method="post">
         {% csrf_token  %}
         {{ news_form.as_p }}
         <button type="submit">Изменить</button>
     </form>
-</body>
-</html>
+{% endblock %}
