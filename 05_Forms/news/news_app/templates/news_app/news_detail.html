@@ -7,7 +7,7 @@
     <hr>
 
     <h3>Добавить комментарий:</h3>
-    <form action="/news/{{ news.id }}/comment/" method="post">
+    <form action="{% url 'news_comment' news.id %}" method="post">
         {% csrf_token %}
         {% if user.username %} <input type="hidden" name="user" value="{{ user.id }}">
         {% else %}<p>{{ comment_form.user_name}}</p>

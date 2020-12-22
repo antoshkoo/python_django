@@ -35,7 +35,7 @@ class NewsCreateFormView(View):
 
         if news_form.is_valid():
             News.objects.create(**news_form.cleaned_data)
-            return HttpResponseRedirect(reverse('news-list'))
+        return HttpResponseRedirect(reverse('news-list'))
 
 
 class NewsEditFormView(View):
