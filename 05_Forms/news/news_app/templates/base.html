@@ -7,9 +7,16 @@
 <body style="margin: 0; padding: 0">
 <header style="background: #e8e8e8; padding: 20px;">
     <div>
-        {% if user.is_authenticated %}Привет, {{ user.username }}! <a href="{% url 'logout' %}">Выйти</a>
-        {% else %}Добро пожаловать на сайт! <a href="{% url 'login' %}">Войти</a>
+        {% if user.is_authenticated %}
+            Привет, {% firstof user.first_name user.username %}!
+            <a href="{% url 'profile' %}">Профиль</a>
+            <a href="{% url 'logout' %}">Выйти</a>
+        {% else %}
+            Добро пожаловать на сайт!
+            <a href="{% url 'login' %}">Войти</a> или
+            <a href="{% url 'register' %}">Зарегистрироваться</a>
         {% endif %}
+        <a href="{% url 'news-list' %}">Новости</a>
     </div>
 </header>
 <h1>{% block h1 %}{% endblock %}</h1>

@@ -8,6 +8,7 @@ from .models import *
 admin.site.site_header = 'News Admin'
 admin.site.unregister(Group)
 
+
 class NewsCommentsInLine(admin.TabularInline):
     model = NewsComments
 
@@ -22,7 +23,6 @@ class NewsAdmin(admin.ModelAdmin):
     fields = ['name', 'body', ('created_at', 'updated_at'), 'is_active']
     readonly_fields = ['created_at', 'updated_at']
     save_on_top = True
-
 
     actions = ['make_active', 'make_inactive']
 
@@ -53,4 +53,3 @@ class NewsCommentsAdmin(admin.ModelAdmin):
 
     delete_by_admin.short_description = 'Пометить "Удалено администратором"'
     short_comment.short_description = 'Комментарий'
-

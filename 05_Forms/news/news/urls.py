@@ -16,11 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from .views import NewLoginView, NewLogoutView
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', NewLoginView.as_view(), name='login'),
-    path('logout/', NewLogoutView.as_view(), name='logout'),
+    path('user/', include('users.urls')),
     path('news/', include('news_app.urls'))
 ]

@@ -18,7 +18,7 @@
     </form>
     <hr>
 
-    {% if news.comments.exists %}
+    {% if news.comments %}
     <h3>Комментарии:</h3>
     {% for comment in news.comments.all %}
         <p>{% firstof comment.user comment.user_name %}{% if comment.user_name %} (Аноним){% endif %}:
