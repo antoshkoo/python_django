@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import permission_required, login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import DetailView, ListView
 
@@ -10,6 +12,7 @@ from .models import News, NewsComments
 
 class NewsListView(ListView):
     model = News
+    queryset = News.objects.filter(is_active=1)
     context_object_name = 'news_list'
 
 
@@ -24,6 +27,7 @@ class NewsDetailView(DetailView):
         return context
 
 
+@method_decorator(permission_required('news_app.add_news'), name="dispatch")
 class NewsCreateFormView(View):
 
     def get(self, request):
@@ -38,6 +42,7 @@ class NewsCreateFormView(View):
         return HttpResponseRedirect(reverse('news-list'))
 
 
+@method_decorator(permission_required('news_app.change_news'), name="dispatch")
 class NewsEditFormView(View):
 
     def get(self, request, news_id):

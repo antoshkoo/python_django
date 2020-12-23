@@ -10,5 +10,7 @@
     <p>{{ user.profile.phone }}</p>
     <p>{{ user.profile.date_of_birth }}</p>
     <p>{{ user.profile.discount_card }}</p>
+    <p>{% if user.profile.is_verified %}Верифицирован{% else %}Не верифицирован{% endif %}</p>
+    <p>{{ user.profile.news_count }}</p>
 
 {% endblock %}

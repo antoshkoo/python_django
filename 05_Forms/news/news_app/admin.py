@@ -5,8 +5,8 @@ from .models import *
 
 # Register your models here.
 
-admin.site.site_header = 'News Admin'
-admin.site.unregister(Group)
+# admin.site.site_header = 'News Admin'
+# admin.site.unregister(Group)
 
 
 class NewsCommentsInLine(admin.TabularInline):

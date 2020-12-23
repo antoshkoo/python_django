@@ -7,7 +7,7 @@ class NewsForm(ModelForm):
 
     class Meta:
         model = News
-        fields = '__all__'
+        fields = ['name', 'body']
 
 
 class NewsCommentsForm(ModelForm):
