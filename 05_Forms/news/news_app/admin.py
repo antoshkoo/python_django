@@ -20,7 +20,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_editable = ['is_active']
     list_filter = ['is_active', 'tags', 'created_at']
     inlines = [NewsCommentsInLine]
-    fields = ['name', 'body', ('created_at', 'updated_at'), 'is_active']
+    fields = ['name', 'body', ('created_at', 'updated_at'), 'is_active', 'tags']
     readonly_fields = ['created_at', 'updated_at']
     save_on_top = True
 

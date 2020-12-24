@@ -2,13 +2,23 @@
 {% block title %}Все новости{% endblock %}
 {% block h1 %}Все новости{% endblock %}
 {% block content %}
+    <div style="background: #ffffaa; padding: 20px">
+        Сначала
+        <a href="{% url 'news-list' %}?order_by=ASC">Новые</a>,
+        <a href="{% url 'news-list' %}?order_by=DESC">Старые</a>
+    ||
+        Теги:
+    {% for tag in tags %}
+        <a href="{% url 'news-list'%}?tag={{ tag.slug }}"><span style="background: #62c462;">{{ tag.name }}</span></a>
+    {% endfor %}
+    </div>
     <ul>
         {% for news in news_list %}
         <li>
             <a href="{% url 'news-detail' news.id %}">{{ news.name }}</a>
-
+            {{ news.tags.all|join:', ' }}
             {% for tag in news.tags.all %}
-                <a href="{{ tag.slug }}"><span style="background: #62c462;">{{ tag.name }}</span></a>
+                <a href="{% url 'news-list'%}?tag={{ tag.slug }}"><span style="background: #62c462;">{{ tag.name }}</span></a>
             {% endfor %}
         </li>
         {% endfor %}

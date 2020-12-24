@@ -5,16 +5,12 @@ from .utils import slugify
 
 
 class News(models.Model):
-    ACTIVE_CHOICES = (
-        (1, 'Да'),
-        (0, 'Нет'),
-    )
     name = models.CharField(max_length=1000, db_index=True, verbose_name='Заголовок')
     body = models.TextField(verbose_name='Текст новости')
     tags = models.ManyToManyField('NewsTags', blank=True, db_index=True, related_name='news')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.IntegerField(verbose_name='Активно', choices=ACTIVE_CHOICES, default=0)
+    is_active = models.BooleanField(verbose_name='Активно', default=0)
 
     def __str__(self):
         return self.name
