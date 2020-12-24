@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Новости с тегом: {{ tag.name }}{% endblock %}
+{% block h1 %}Новости с тегом: {{ tag.name }}{% endblock %}
+{% block content %}
+
+    <ul>
+        {% for news in tag.news.all %}
+        <li>
+            <a href="{% url 'news-detail' news.id %}">{{ news.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

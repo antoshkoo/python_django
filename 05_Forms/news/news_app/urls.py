@@ -8,4 +8,6 @@ urlpatterns = [
     path('create/', NewsCreateFormView.as_view(), name='news_create'),
     path('<int:news_id>/edit/', NewsEditFormView.as_view(), name='news_edit'),
     path('<int:news_id>/comment/', NewsCommentsFormView.as_view(), name='news_comment'),
+    path('tags/', NewsTagsListView.as_view(), name='tags_list'),
+    path('tags/<str:slug>/', NewsTagsDetailView.as_view(), name='tags_detail'),
 ]

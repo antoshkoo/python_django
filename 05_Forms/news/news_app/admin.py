@@ -18,7 +18,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'created_at', 'updated_at', 'is_active']
     list_display_links = ['id', 'name']
     list_editable = ['is_active']
-    list_filter = ['is_active']
+    list_filter = ['is_active', 'tags', 'created_at']
     inlines = [NewsCommentsInLine]
     fields = ['name', 'body', ('created_at', 'updated_at'), 'is_active']
     readonly_fields = ['created_at', 'updated_at']
@@ -53,3 +53,8 @@ class NewsCommentsAdmin(admin.ModelAdmin):
 
     delete_by_admin.short_description = 'Пометить "Удалено администратором"'
     short_comment.short_description = 'Комментарий'
+
+
+@admin.register(NewsTags)
+class NewsTagsAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug']

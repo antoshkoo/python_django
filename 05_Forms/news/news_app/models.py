@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from .utils import slugify
+
 
 class News(models.Model):
     ACTIVE_CHOICES = (
@@ -9,6 +11,7 @@ class News(models.Model):
     )
     name = models.CharField(max_length=1000, db_index=True, verbose_name='Заголовок')
     body = models.TextField(verbose_name='Текст новости')
+    tags = models.ManyToManyField('NewsTags', blank=True, db_index=True, related_name='news')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.IntegerField(verbose_name='Активно', choices=ACTIVE_CHOICES, default=0)
@@ -31,3 +34,22 @@ class NewsComments(models.Model):
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
+
+
+class NewsTags(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    slug = models.SlugField(blank=True)
+
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if self.slug:
+            super(NewsTags, self).save(*args, **kwargs)
+        else:
+            self.slug = slugify(self.name)
+            super(NewsTags, self).save(*args, **kwargs)

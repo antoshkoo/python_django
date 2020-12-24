@@ -4,7 +4,13 @@
 {% block content %}
     <ul>
         {% for news in news_list %}
-        <li><a href="{% url 'news-detail' news.id %}">{{ news.name }}</a></li>
+        <li>
+            <a href="{% url 'news-detail' news.id %}">{{ news.name }}</a>
+
+            {% for tag in news.tags.all %}
+                <a href="{{ tag.slug }}"><span style="background: #62c462;">{{ tag.name }}</span></a>
+            {% endfor %}
+        </li>
         {% endfor %}
     </ul>
 {% endblock %}

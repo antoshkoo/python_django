@@ -7,7 +7,8 @@ from django.views import View
 from django.views.generic import DetailView, ListView
 
 from .forms import NewsForm, NewsCommentsForm
-from .models import News, NewsComments
+from .models import News, NewsComments, NewsTags
+from users.models import Profile
 
 
 class NewsListView(ListView):
@@ -27,6 +28,19 @@ class NewsDetailView(DetailView):
         return context
 
 
+class NewsTagsListView(ListView):
+    model = NewsTags
+    context_object_name = 'tags_list'
+
+
+class NewsTagsDetailView(DetailView):
+    model = NewsTags
+
+    def get(self, request, slug):
+        tag = NewsTags.objects.get(slug=slug)
+        return render(request, 'news_app/newstags_detail.html', context={'tag': tag})
+
+
 @method_decorator(permission_required('news_app.add_news'), name="dispatch")
 class NewsCreateFormView(View):
 
@@ -39,6 +53,9 @@ class NewsCreateFormView(View):
 
         if news_form.is_valid():
             News.objects.create(**news_form.cleaned_data)
+            current_user = Profile.objects.get(user_id=request.user.id)
+            current_user.news_count += 1
+            current_user.save()
         return HttpResponseRedirect(reverse('news-list'))
 
 
