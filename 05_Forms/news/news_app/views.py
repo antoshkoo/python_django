@@ -11,27 +11,26 @@ from .models import News, NewsComments, NewsTags
 from users.models import Profile
 
 
-class NewsListView(View):
+class NewsListView(ListView):
     model = News
+    template_name = 'news_app/news_list.html'
 
-    def get(self, request):
-        tags = NewsTags.objects.all()
+    def get_queryset(self):
         tag = self.request.GET.get('tag', False)
         order_by = self.request.GET.get('order_by', False)
         order = '-created_at' if order_by == 'ASC' else 'created_at'
-        if tag and order_by:
-            queryset = News.objects.filter(tags__slug=tag, is_active=1).order_by(order)
-        elif tag:
+        queryset = News.objects.all()
+        if tag:
             queryset = News.objects.filter(tags__slug=tag, is_active=1)
-        elif order_by:
-            queryset = News.objects.filter(is_active=1).order_by(order)
-        else:
-            queryset = News.objects.filter(is_active=1)
+        if order_by:
+            queryset = queryset.order_by(order)
+        return queryset
 
-        return render(request, 'news_app/news_list.html', context={
-            'news_list': queryset,
-            'tags': tags,
-        })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tags = NewsTags.objects.all()
+        context['tags'] = tags
+        return context
 
 
 class NewsDetailView(DetailView):
