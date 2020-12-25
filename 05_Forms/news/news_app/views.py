@@ -19,9 +19,9 @@ class NewsListView(ListView):
         tag = self.request.GET.get('tag', False)
         order_by = self.request.GET.get('order_by', False)
         order = '-created_at' if order_by == 'ASC' else 'created_at'
-        queryset = News.objects.all()
+        queryset = News.objects.filter(is_active=1)
         if tag:
-            queryset = News.objects.filter(tags__slug=tag, is_active=1)
+            queryset = News.objects.filter(tags__slug=tag)
         if order_by:
             queryset = queryset.order_by(order)
         return queryset
