@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if item_list %}
+<table border="1">
+    {% for item in item_list %}
+    <tr>
+        <td>{{ item.title }}</td>
+        <td>{{ item.code }}</td>
+        <td>{{ item.price }}</td>
+    </tr>
+    {% endfor %}
+{% endif %}
+</table>
+</body>
+</html>
