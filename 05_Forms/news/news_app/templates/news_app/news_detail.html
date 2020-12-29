@@ -2,7 +2,7 @@
 {% block title %}{{ news.name }}{% endblock %}
 {% block h1 %}{{ news.name }}{% endblock %}
 {% block content %}
-    <div>{{ news.created_at }}</div>
+    <div>{{ news.created_at }} {{ news.created_at|timesince }} {% now 'd m Y' %} </div>
     <div>{{ news.body }}</div>
     <hr>
 
@@ -18,12 +18,12 @@
     </form>
     <hr>
 
-    {% if news.comments %}
     <h3>Комментарии:</h3>
     {% for comment in news.comments.all %}
         <p>{% firstof comment.user comment.user_name %}{% if comment.user_name %} (Аноним){% endif %}:
         <blockquote><i>{{ comment.comment_text }}</i></blockquote>
         </p>
+    {% empty %}
+        <p>Нет комментариев</p>
     {% endfor %}
-    {% endif %}
 {% endblock %}

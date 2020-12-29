@@ -12,6 +12,8 @@
         <a href="{% url 'news-list'%}?tag={{ tag.slug }}"><span style="background: #62c462;">{{ tag.name }}</span></a>
     {% endfor %}
     </div>
+    Всего новостей {{ news_list|length }}
+    {{ 'joel is a bird'|slugify }}
     <ul>
         {% for news in news_list %}
         <li>
