@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}Профиль пользователя{% endblock %}
+{% block h1 %}Профиль пользователя{% endblock %}
+
+{% block content %}
+    <h3>Привет, {{ user.username }}!</h3>
+    <p>Ваш email: {{ user.email }}</p>
+    <p><img src="{{ MEDIA_URL }}{{ user.profile.avatar }}" width="200"></p>
+    <form action="." method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_user.as_p }}
+        {{ form_profile.as_p }}
+        {{ form_profile2.as_p }}
+    <button type="submit">Изменить</button>
+    </form>
+{% endblock %}

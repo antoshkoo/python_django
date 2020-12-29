@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block header %}Регистрация пользователя{% endblock %}
+{% block h1 %}Регистрация пользователя{% endblock %}
+
+{% block content %}
+    <form action="." method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зарегистрироваться</button>
+    </form>
+{% endblock %}

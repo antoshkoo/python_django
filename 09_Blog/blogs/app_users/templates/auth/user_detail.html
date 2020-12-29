@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}Профиль пользователя{% endblock %}
+{% block h1 %}Профиль пользователя {{ user.username }}{% endblock %}
+
+{% block content %}
+    <p>{{ user.first_name }}</p>
+    <p>{{ user.last_name }}</p>
+    <p>{{ user.profile.about }}</p>
+    <p><img src="{{ MEDIA_URL }}{{ user.profile.avatar }}"></p>
+{% endblock %}
