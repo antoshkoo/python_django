@@ -4,4 +4,7 @@
 {% block content %}
     Автор: <strong>{{ post.user }}</strong> ({{ post.pub_date }})
     <p>{{ post.body }}</p>
+    {%  for i in post.gallery.all  %}
+        <img src="{{ MEDIA_URL }}{{ i.image }}" width="200">
+    {% endfor %}
 {% endblock %}

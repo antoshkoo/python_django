@@ -7,7 +7,6 @@
             <a href="{% url 'post_detail_url' post.id %}">{{ post.title }}</a>
             <p>Автор: <strong>{{ post.user }}</strong> ({{ post.pub_date }})</p>
             <p>{{ post.body|truncatechars:150 }}</p>
-            {{ post.files }}
         </div>
     {% endfor %}
 {% endblock %}
