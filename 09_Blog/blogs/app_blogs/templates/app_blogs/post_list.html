@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Записи{% endblock %}
+{% block h1 %}Записи{% endblock %}
+{% block content %}
+    {% for post in post_list %}
+        <div style="border: 1px solid #e8e8e8; padding: 10px;">
+            <a href="{% url 'post_detail_url' post.id %}">{{ post.title }}</a>
+            <p>Автор: <strong>{{ post.user }}</strong> ({{ post.pub_date }})</p>
+            <p>{{ post.body|truncatechars:150 }}</p>
+            {{ post.files }}
+        </div>
+    {% endfor %}
+{% endblock %}

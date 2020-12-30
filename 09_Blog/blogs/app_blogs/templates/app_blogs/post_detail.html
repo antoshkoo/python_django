@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block h1 %}{{ post.title }}{% endblock %}
+{% block content %}
+    Автор: <strong>{{ post.user }}</strong> ({{ post.pub_date }})
+    <p>{{ post.body }}</p>
+{% endblock %}

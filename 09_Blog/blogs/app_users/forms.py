@@ -10,9 +10,7 @@ class UserRegisterForm(UserCreationForm):
 
 class UserProfileForm(UserChangeForm):
     password = None
-    email = None
 
     class Meta:
         model = User
         fields = ['first_name', 'last_name']
-
