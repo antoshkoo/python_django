@@ -1,3 +1,4 @@
+import datetime
 from _csv import reader
 
 from django.contrib.admin.views.decorators import staff_member_required
@@ -15,7 +16,8 @@ from .models import Post, Gallery
 
 class PostListView(ListView):
     model = Post
-    queryset = Post.objects.filter(pub_date__lte=timezone.now())
+    current_time = timezone.now()
+    queryset = Post.objects.filter(pub_date__lte=current_time)
 
 
 class PostDetailView(DetailView):
