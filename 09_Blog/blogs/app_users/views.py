@@ -2,12 +2,14 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
+from django.core.mail import send_mail
 from django.forms import inlineformset_factory
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.generic import DetailView
 
 from .models import Profile
-from .forms import UserRegisterForm, UserProfileForm
+from .forms import UserRegisterForm, UserProfileForm, UserRestorePasswordForm
 
 
 def user_register(request):
@@ -55,3 +57,24 @@ def user_profile(request):
         form_profile = UserProfileFormSet(instance=user)
         form_user = UserProfileForm(instance=user)
     return render(request, 'auth/user_profile.html', context={'form_profile': form_profile, 'form_user': form_user})
+
+
+def restore_password(request):
+    if request.method == 'POST':
+        form = UserRestorePasswordForm(request.POST)
+        if form.is_valid():
+            user_email = form.cleaned_data['email']
+            new_password = User.objects.make_random_password()
+            current_user = User.objects.filter(email=user_email).first()
+            if current_user:
+                current_user.set_password(new_password)
+                current_user.save()
+            send_mail(
+                subject='Password recovery',
+                message='Test mail body',
+                from_email='admin@company.com',
+                recipient_list=[form.cleaned_data['email']]
+            )
+            return HttpResponse('Email with new password was send!')
+    form = UserRestorePasswordForm
+    return render(request, 'restore_password.html', context={'form': form})
