@@ -1,12 +1,9 @@
-import datetime
 from _csv import reader
 
-from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.utils import timezone
-from django.utils.decorators import method_decorator
+from django.views import View
 
 from django.views.generic import ListView, DetailView, CreateView
 
@@ -16,25 +13,13 @@ from .models import Post, Gallery
 
 class PostListView(ListView):
     model = Post
-    current_time = timezone.now()
-    queryset = Post.objects.filter(pub_date__lte=current_time)
 
 
 class PostDetailView(DetailView):
     model = Post
 
 
-def post_create(request):
-    form = PostForm(request.POST, request.FILES)
-    if request.method == 'POST':
-        pass
-    else:
-        form = PostForm
-    return render(request, 'app_blogs/post_create.html', context={'form': form})
-
-
-@method_decorator(login_required(login_url='login'), name='dispatch')
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
 
@@ -51,9 +36,8 @@ class PostCreateView(CreateView):
             return redirect('posts_list_url')
 
 
-@staff_member_required(login_url='login_url')
-def post_upload(request):
-    if request.method == 'POST':
+class PostUploadView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
         form = PostFileUpload(request.POST, request.FILES)
         if form.is_valid():
             file = form.cleaned_data['file'].read()
@@ -65,6 +49,9 @@ def post_upload(request):
                 new_posts += 1
             return HttpResponse(content=f'Записей добавлено: {new_posts}', status=200)
 
-    else:
-        form = PostFileUpload
-    return render(request, 'app_blogs/post_upload.html', context={'form': form})
+    def get(self, request):
+        if request.user.is_staff:
+            form = PostFileUpload
+            return render(request, 'app_blogs/post_upload.html', context={'form': form})
+        else:
+            return HttpResponse(content='Недостаточно прав', status=200)
