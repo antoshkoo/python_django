@@ -27,7 +27,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save(commit=False)
-            obj.user = self.request.user
+            obj.user = request.user
             obj.save()
             if request.FILES:
                 for f in request.FILES.getlist('files'):

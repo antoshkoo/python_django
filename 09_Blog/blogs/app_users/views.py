@@ -1,15 +1,18 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.mail import send_mail
 from django.forms import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.views import View
 from django.views.generic import DetailView
 
 from .models import Profile
-from .forms import UserRegisterForm, UserProfileForm, UserRestorePasswordForm
+from .forms import UserRegisterForm, UserRestorePasswordForm, UserEditForm, ProfileEditForm
 
 
 def user_register(request):
@@ -21,42 +24,40 @@ def user_register(request):
             raw_password = form.cleaned_data['password1']
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('/')
+            return redirect(reverse('posts_list_url'))
+    elif request.user.username:
+        return redirect(reverse('user_profile_url'))
     else:
         form = UserRegisterForm
     return render(request, 'registration/register.html', context={'form': form})
 
 
 class UserLoginView(LoginView):
-    redirect_field_name = 'next'
     redirect_authenticated_user = True
 
 
 class UserLogoutView(LogoutView):
-    next_page = '/'
+    next_page = 'posts_list_url'
 
 
 class UserDetailView(DetailView):
     model = User
 
 
-@login_required(login_url='login_url')
-def user_profile(request):
-    user = User.objects.get(pk=request.user.id)
-    UserProfileFormSet = inlineformset_factory(User, Profile, fields=('__all__'), can_delete=False)
-    if request.method == 'POST':
-        form_user = UserProfileForm(request.POST)
-        form_profile = UserProfileFormSet(request.POST, request.FILES, instance=user)
-        if form_profile.is_valid() and form_user.is_valid():
-            form_profile.save()
-            user.first_name = form_user.cleaned_data['first_name']
-            user.last_name = form_user.cleaned_data['last_name']
-            user.save()
-            return redirect('user_profile_url')
-    else:
-        form_profile = UserProfileFormSet(instance=user)
-        form_user = UserProfileForm(instance=user)
-    return render(request, 'auth/user_profile.html', context={'form_profile': form_profile, 'form_user': form_user})
+class UserProfileView(LoginRequiredMixin, View):
+    def get(self, request):
+        form_user = UserEditForm(instance=request.user)
+        form_profile = ProfileEditForm(instance=request.user.profile)
+        return render(request, 'auth/user_profile.html', {'form_user': form_user, 'form_profile': form_profile})
+
+    def post(self, request):
+        if request.method == 'POST':
+            form_user = UserEditForm(instance=request.user, data=request.POST)
+            form_profile = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+            if form_user.is_valid() and form_profile.is_valid():
+                form_user.save()
+                form_profile.save()
+        return redirect('user_profile_url')
 
 
 def restore_password(request):

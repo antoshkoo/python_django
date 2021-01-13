@@ -7,5 +7,7 @@
     <p>{{ user.first_name }}</p>
     <p>{{ user.last_name }}</p>
     <p>{{ user.profile.about }}</p>
+    {% if user.profile.avatar %}
     <p><img src="{{ MEDIA_URL }}{{ user.profile.avatar }}"></p>
+    {% endif %}
 {% endblock %}

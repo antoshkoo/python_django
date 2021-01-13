@@ -34,6 +34,8 @@ class PostFormTest(TestCase):
         self.client.login(username='test', password='test')
         response = self.client.post(reverse('post_create_url'), {'title': 'First post', 'body': 'Post body'})
         self.assertRedirects(response, reverse('posts_list_url'), status_code=302, target_status_code=200)
+        post = Post.objects.first()
+        self.assertEqual(post.title, 'First post')
 
     def test_post_form_data_with_image_submit(self):
         self.client.login(username='test', password='test')
