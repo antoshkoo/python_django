@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
+from django.utils.six import BytesIO
 
 from app_blogs.models import Post, Gallery
 
@@ -33,9 +34,11 @@ class GalleryModelTest(TestCase):
         user = User.objects.create_user(username='test', password='test')
         post = Post.objects.create(title='1 Post', body='1 post body', user_id=user.id)
 
-        image_url = 'https://yastatic.net/islands/_/RQWGFypkIRAzEbaERs_Sq8zKRzY.svg'
-        image_data = self.client.get(image_url).content
-        image_file = SimpleUploadedFile('image.jpg', image_data, 'image/jpeg')
-        gallery = Gallery.objects.create(image=image_file, post_id=post.id)
+        img = BytesIO(
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        image_file = SimpleUploadedFile('image.gif', img.read(), 'image/gif')
+        gallery = Gallery.objects.create(image=image_file,  post_id=post.id)
 
         self.assertTrue(gallery.image)
+        gallery.image.delete()
