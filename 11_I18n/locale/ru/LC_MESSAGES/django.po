@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 10:15+0000\n"
+"POT-Creation-Date: 2021-01-18 21:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,9 +20,17 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: app_goods/apps.py:7 app_goods/models.py:10
+#: app_goods/apps.py:7 app_goods/models.py:11
+msgid "good"
+msgstr "товар"
+
+#: app_goods/apps.py:8 app_goods/models.py:10
 msgid "goods"
 msgstr "товары"
+
+#: app_goods/forms.py:6
+msgid "File *.csv"
+msgstr "Файл *.csv"
 
 #: app_goods/models.py:6
 msgid "code"
@@ -32,14 +40,121 @@ msgstr "Артикул"
 msgid "price"
 msgstr "Цена"
 
-#: app_goods/models.py:11
-msgid "good"
-msgstr "товары"
+#: app_pages/apps.py:7
+msgid "page"
+msgstr "Страница"
+
+#: app_pages/apps.py:8
+msgid "pages"
+msgstr "Страницы"
 
 #: app_pages/views.py:12
 #, python-format
 msgid "Hello there! Today is %(date)s %(time)s"
 msgstr "Привет! Сегодня %(date)s %(time)s"
+
+#: app_users/apps.py:7
+msgid "user"
+msgstr "Пользователь"
+
+#: app_users/apps.py:8
+msgid "users"
+msgstr "Пользователи"
+
+#: app_users/forms.py:10
+msgid "Your name"
+msgstr "Ваше имя"
+
+#: app_users/forms.py:11
+msgid "Password"
+msgstr "Пароль"
+
+#: app_users/forms.py:15
+#, fuzzy
+#| msgid "Your name"
+msgid "First name"
+msgstr "Ваше имя"
+
+#: app_users/forms.py:16
+msgid "Last name"
+msgstr "Фамилия"
+
+#: app_users/forms.py:17
+msgid "Date of birth"
+msgstr "Дата рождения"
+
+#: app_users/forms.py:19
+msgid "City"
+msgstr "Город"
+
+#: app_users/views.py:40
+msgid "You successful logged in"
+msgstr "Вы успешно авторизованы"
+
+#: app_users/views.py:42
+msgid "Error! Your account isn't active."
+msgstr "Ваш аккаунт неактивен"
+
+#: app_users/views.py:44
+msgid "Error! Check entered email and password"
+msgstr "Проверьте правильность ввода Email и пароля"
+
+#: app_users/views.py:56
+msgid "Logout successful"
+msgstr "Вы успешно вышли"
+
+#: app_users/views.py:164 templates/base.html:19
+#: templates/users/restore_password.html:3
+#: templates/users/restore_password.html:4
+#: templates/users/restore_password.html:9
+msgid "Restore password"
+msgstr "Восстановление пароля"
+
+#: app_users/views.py:165
+#, python-brace-format
+msgid "New password: {new_password}"
+msgstr "Новый пароль: {new_password}"
+
+#: app_users/views.py:168
+msgid "Email with new password was sent!"
+msgstr "Письмо с новым паролем отправлено"
+
+#: templates/base.html:14
+msgid "Account"
+msgstr "Профиль"
+
+#: templates/base.html:15 templates/users/logout.html:3
+#: templates/users/logout.html:4
+msgid "Logout"
+msgstr "Выйти"
+
+#: templates/base.html:17
+msgid "Log in"
+msgstr "Войти"
+
+#: templates/base.html:18 templates/users/register.html:9
+msgid "Sign up"
+msgstr "Зарегистрироваться"
+
+#: templates/base.html:36
+msgid "Select"
+msgstr "Выбрать"
+
+#: templates/goods/items_list.html:3 templates/goods/items_list.html:4
+#, fuzzy
+#| msgid "goods"
+msgid "Goods"
+msgstr "товары"
+
+#: templates/goods/items_list.html:10
+msgid "Code"
+msgstr "Артикул"
+
+#: templates/goods/items_list.html:11
+#, fuzzy
+#| msgid "price"
+msgid "Price"
+msgstr "Цена"
 
 #: templates/greetings.html:6
 msgid "What time is it?"
@@ -56,3 +171,48 @@ msgstr "Переведенный текст"
 #: templates/translation_example.html:23
 msgid "Welcome to our page"
 msgstr "Добро пожаловать на нашу страницу"
+
+#: templates/users/account.html:3 templates/users/account.html:4
+msgid "User profile"
+msgstr "Профиль пользователя"
+
+#: templates/users/account.html:7
+msgid "Welcome"
+msgstr "Добро пожаловать"
+
+#: templates/users/account.html:13
+msgid "No Avatar"
+msgstr "Нет аватара"
+
+#: templates/users/account.html:16
+msgid "Please login to access this page"
+msgstr "Пожалуйста водите"
+
+#: templates/users/account.html:17 templates/users/login.html:9
+msgid "Sign in"
+msgstr "Войти"
+
+#: templates/users/edit_account.html:3 templates/users/edit_account.html:4
+msgid "Edit profile"
+msgstr "Редактировать профиль"
+
+#: templates/users/edit_account.html:9
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/users/login.html:3 templates/users/login.html:4
+msgid "Login"
+msgstr "Страница входа"
+
+#: templates/users/logout.html:6
+#, fuzzy
+#| msgid "You successful logged in"
+msgid "You are successful logout"
+msgstr "Вы успешно авторизованы"
+
+#: templates/users/register.html:3 templates/users/register.html:4
+msgid "User register"
+msgstr "Регистрация пользователя"
+
+#~ msgid "Enter"
+#~ msgstr "Войти"

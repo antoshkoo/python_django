@@ -1,17 +1,15 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.mail import send_mail
-from django.forms import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.utils.translation import gettext as _
 from django.views import View
 from django.views.generic import DetailView
 
-from .models import Profile
 from .forms import UserRegisterForm, UserRestorePasswordForm, UserEditForm, ProfileEditForm
 
 
@@ -76,6 +74,6 @@ def restore_password(request):
                 from_email='admin@company.com',
                 recipient_list=[form.cleaned_data['email']]
             )
-            return HttpResponse('Email with new password was send!')
+            return HttpResponse(_('Email with new password was send!'))
     form = UserRestorePasswordForm
     return render(request, 'restore_password.html', context={'form': form})

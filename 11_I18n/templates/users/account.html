@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Профиль</title>
-</head>
-<body>
-
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans 'User profile' %}{% endblock %}
+{% block h1 %}{% trans 'User profile' %}{% endblock %}
+{% block content %}
 {% if request.user.is_authenticated %}
-    Добро пожаловать на сайт, {{ request.user.username }}
+    {% trans 'Welcome' %}, {{ request.user.username }}
     {% if request.user.avatar %}
         <p>
         <img src="{{ request.user.avatar.url }}" alt="Smiley face" width="250" height="250">
         </p>
     {% else %}
-        <p>Аватар не загружен</p>
+        <p>{% trans 'No Avatar' %}</p>
     {% endif %}
 {% else %}
-    Вы неавторизованы на нашем сайте.
-    <a href="{% url 'login' %}">Войти</a>
+    {% trans 'Please login to access this page' %}
+    <a href="{% url 'login_url' %}">{% trans 'Sign in' %}</a>
 {% endif %}
-
-</body>
-</html>
+{% endblock %}

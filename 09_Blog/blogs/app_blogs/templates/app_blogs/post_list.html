@@ -1,7 +1,32 @@
 {% extends 'base.html' %}
-{% block title %}Записи{% endblock %}
-{% block h1 %}Записи{% endblock %}
+{% load i18n %}
+{% block title %}{% trans 'Posts' %}{% endblock %}
+{% block h1 %}{% trans 'Posts' %}{% endblock %}
 {% block content %}
+    {% get_current_language as LANGUAGE_CODE %}
+{% get_language_info for LANGUAGE_CODE as lang %}
+{{ lang.code }}
+{{ lang.name_local }}
+{{ lang.name }}
+{{ lang.bidi }}
+{{ lang.name_translated }}
+{% language 'en' %}
+    <!-- Current lang {{ lang }} -->
+    <p>{% trans 'You are welcome' %}</p>
+{% endlanguage %}
+<form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+    <select name="language">
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    {% for language in languages %}
+        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+        {{ language.name_local }} ({{ language.code }})
+        </option>
+    {% endfor %}
+    </select>
+    <button type="submit">Go</button>
+</form>
     {% for post in post_list %}
         <div style="border: 1px solid #e8e8e8; padding: 10px;">
             <a href="{% url 'post_detail_url' post.id %}">{{ post.title }}</a>

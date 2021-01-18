@@ -6,7 +6,7 @@
     <title>{% trans "What time is it?" %}</title>
 </head>
 <body>
-
+{% block content %}
 <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
     <input name="next" type="hidden" value="{{ redirect_to }}">
     <select name="language">
@@ -21,6 +21,7 @@
     </select>
     <input type="submit" value="Go">
 </form>
+
 
     <h1>{{ greetings_message }}</h1>
 

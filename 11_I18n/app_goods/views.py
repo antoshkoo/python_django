@@ -4,6 +4,7 @@ from io import StringIO
 
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import DetailView
 
 from app_goods.forms import UploadPriceFileForm
 from app_goods.models import Item
@@ -12,6 +13,11 @@ from app_goods.models import Item
 def item_list(request, *args, **kwargs):
     items = Item.objects.all()
     return render(request, 'goods/items_list.html', {'items_list': items})
+
+
+class ItemDetailView(DetailView):
+    model = Item
+    template_name = 'goods/item_detail.html'
 
 
 def update_prices(request):

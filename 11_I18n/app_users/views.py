@@ -7,6 +7,7 @@ from django.contrib.auth.views import LogoutView
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext as _
 
 from app_users.forms import AuthForm, RegisterForm, UserForm, RestorePasswordForm
 
@@ -36,11 +37,11 @@ def login_view(request):
             if user:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Вы успешно авторизованы')
+                    return HttpResponse(_('You successful logged in'))
                 else:
-                    auth_form.add_error('__all__', 'Ошибка! Учетная запись пользователя неактивна.')
+                    auth_form.add_error('__all__', _('Error! Your account isn\'t active.'))
             else:
-                auth_form.add_error('__all__', 'Ошибка! Проверьте правильность написания логина и пароля.')
+                auth_form.add_error('__all__', _('Error! Check entered email and password'))
     else:
         auth_form = AuthForm()
 
@@ -52,7 +53,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponse('Вы успешно вышли из под своей учетной записи')
+    return HttpResponse(_('Logout successful'))
 
 
 def register_view(request):
@@ -160,11 +161,11 @@ def restore_password(request):
             if current_user:
                 current_user.set_password(new_password)
                 current_user.save()
-                send_mail(subject='Восстановление пароля',
-                          message=f'Новый пароль: {new_password}',
+                send_mail(subject=_('Restore password'),
+                          message=_(f'New password: {new_password}'),
                           from_email='admin@company.com',
                           recipient_list=[form.cleaned_data['email']])
-                return HttpResponse('Письмо с новым паролем было успешно отправлено')
+                return HttpResponse(_('Email with new password was sent!'))
 
     restore_password_form = RestorePasswordForm()
     context = {

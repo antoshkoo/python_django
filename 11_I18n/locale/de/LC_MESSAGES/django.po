@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 08:33+0000\n"
+"POT-Creation-Date: 2021-01-18 21:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,140 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: app_goods/apps.py:7 app_goods/models.py:11
+msgid "good"
+msgstr ""
+
+#: app_goods/apps.py:8 app_goods/models.py:10
+msgid "goods"
+msgstr ""
+
+#: app_goods/forms.py:6
+msgid "File *.csv"
+msgstr ""
+
+#: app_goods/models.py:6
+msgid "code"
+msgstr ""
+
+#: app_goods/models.py:7
+msgid "price"
+msgstr ""
+
+#: app_pages/apps.py:7
+msgid "page"
+msgstr ""
+
+#: app_pages/apps.py:8
+msgid "pages"
+msgstr ""
+
+#: app_pages/views.py:12
+#, python-format
+msgid "Hello there! Today is %(date)s %(time)s"
+msgstr ""
+
+#: app_users/apps.py:7
+msgid "user"
+msgstr ""
+
+#: app_users/apps.py:8
+msgid "users"
+msgstr ""
+
+#: app_users/forms.py:10
+msgid "Your name"
+msgstr ""
+
+#: app_users/forms.py:11
+msgid "Password"
+msgstr ""
+
+#: app_users/forms.py:15
+msgid "First name"
+msgstr ""
+
+#: app_users/forms.py:16
+msgid "Last name"
+msgstr ""
+
+#: app_users/forms.py:17
+msgid "Date of birth"
+msgstr ""
+
+#: app_users/forms.py:19
+msgid "City"
+msgstr ""
+
+#: app_users/views.py:40
+msgid "You successful logged in"
+msgstr ""
+
+#: app_users/views.py:42
+msgid "Error! Your account isn't active."
+msgstr ""
+
+#: app_users/views.py:44
+msgid "Error! Check entered email and password"
+msgstr ""
+
+#: app_users/views.py:56
+msgid "Logout successful"
+msgstr ""
+
+#: app_users/views.py:164 templates/base.html:19
+#: templates/users/restore_password.html:3
+#: templates/users/restore_password.html:4
+#: templates/users/restore_password.html:9
+msgid "Restore password"
+msgstr ""
+
+#: app_users/views.py:165
+#, python-brace-format
+msgid "New password: {new_password}"
+msgstr ""
+
+#: app_users/views.py:168
+msgid "Email with new password was sent!"
+msgstr ""
+
+#: templates/base.html:14
+msgid "Account"
+msgstr ""
+
+#: templates/base.html:15 templates/users/logout.html:3
+#: templates/users/logout.html:4
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:17
+msgid "Log in"
+msgstr ""
+
+#: templates/base.html:18 templates/users/register.html:9
+msgid "Sign up"
+msgstr ""
+
+#: templates/base.html:36
+msgid "Select"
+msgstr ""
+
+#: templates/goods/items_list.html:3 templates/goods/items_list.html:4
+msgid "Goods"
+msgstr ""
+
+#: templates/goods/items_list.html:10
+msgid "Code"
+msgstr ""
+
+#: templates/goods/items_list.html:11
+msgid "Price"
+msgstr ""
+
+#: templates/greetings.html:6
+msgid "What time is it?"
+msgstr ""
+
 #: templates/translation_example.html:6
 msgid "Our translation page title."
 msgstr "Der Titel unserer Übersetzungsseite."
@@ -25,3 +159,47 @@ msgstr "Der Titel unserer Übersetzungsseite."
 #: templates/translation_example.html:9
 msgid "Translated text."
 msgstr "Übersetzter Text."
+
+#: templates/translation_example.html:23
+msgid "Welcome to our page"
+msgstr ""
+
+#: templates/users/account.html:3 templates/users/account.html:4
+msgid "User profile"
+msgstr ""
+
+#: templates/users/account.html:7
+msgid "Welcome"
+msgstr ""
+
+#: templates/users/account.html:13
+msgid "No Avatar"
+msgstr ""
+
+#: templates/users/account.html:16
+msgid "Please login to access this page"
+msgstr ""
+
+#: templates/users/account.html:17 templates/users/login.html:9
+msgid "Sign in"
+msgstr ""
+
+#: templates/users/edit_account.html:3 templates/users/edit_account.html:4
+msgid "Edit profile"
+msgstr ""
+
+#: templates/users/edit_account.html:9
+msgid "Save"
+msgstr ""
+
+#: templates/users/login.html:3 templates/users/login.html:4
+msgid "Login"
+msgstr ""
+
+#: templates/users/logout.html:6
+msgid "You are successful logout"
+msgstr ""
+
+#: templates/users/register.html:3 templates/users/register.html:4
+msgid "User register"
+msgstr ""

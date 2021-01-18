@@ -1,0 +1,44 @@
+{% load i18n %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<header>
+    <div>
+        <ul>
+            {% if user.username %}
+                <li><a href="{% url 'user_account_url' %}">{% trans 'Account' %}</a></li>
+                <li><a href="{% url 'logout_url' %}">{% trans 'Logout' %}</a></li>
+            {% else %}
+                <li><a href="{% url 'login_url' %}">{% trans 'Log in' %}</a></li>
+                <li><a href="{% url 'user_register_url' %}">{% trans 'Sign up' %}</a></li>
+                <li><a href="{% url 'restore_password_url' %}">{% trans 'Restore password' %}</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div>
+        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}">
+                <select name="language">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                            {{ language.name_local }} ({{ language.code }})
+                        </option>
+                    {% endfor %}
+                </select>
+            <button type="submit">{% trans 'Select' %}</button>
+        </form>
+    </div>
+</header>
+    <h1>{% block h1 %}{% endblock %}</h1>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
