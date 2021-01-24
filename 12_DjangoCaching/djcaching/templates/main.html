@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load cache %}
+
+{% block title %}{% trans 'Loyalty program' %}{% endblock %}
+{% block h1 %}{% trans 'Loyalty program' %}{% endblock %}
+
+{% block content %}
+    {% if user.username %}
+        {% for shop in shops %}
+            <div style="border-top: 1px solid #ccc;"></div>
+            <h2>{{ shop.name }}</h2>
+            {% include 'shops/promotions.html' %}
+            {% include 'shops/sales.html' %}
+            {% include 'shops/goods.html' %}
+        {% endfor %}
+    {% else %}
+        <h2>{% trans 'Our shops' %}</h2>
+        {% cache 500 shops_cache %}
+            {% for shop in shops %}
+            <p>{{ shop.name }}</p>
+            {% endfor %}
+        {% endcache %}
+        <h2>
+            <a href="{% url 'user_login_url' %}">{% trans 'Sign in' %}</a> {% trans 'or' %}
+            <a href="{% url 'user_register_url' %}">{% trans 'Sign up' %}</a> {% trans 'for view offers' %}
+        </h2>
+    {% endif %}
+
+{% endblock %}

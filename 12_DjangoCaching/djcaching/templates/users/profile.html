@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load cache %}
+{% block title %}{% trans 'Loyalty program' %}{% endblock %}
+{% block h1 %}{% trans 'Loyalty program' %}{% endblock %}
+
+{% block content %}
+    <div>
+        <p><a href="{% url 'main_page_url' %}">{% trans 'View offers' %}</a></p>
+    </div>
+
+    <div>
+        <h2>{% trans 'Shopping history' %}</h2>
+        <table border="1">
+        {% cache 600 shopping_history %}
+        {% for order in user.orders.all %}
+            <tr>
+                <td>{{ order.price_order }}</td>
+                <td>{{ order.good.name }}</td>
+                <td>{{ order.date }}</td>
+            </tr>
+        {% endfor %}
+        {% endcache %}
+        </table>
+    </div>
+{% endblock %}

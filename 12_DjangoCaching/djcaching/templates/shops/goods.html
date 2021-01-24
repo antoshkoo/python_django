@@ -1,0 +1,12 @@
+{% load i18n %}
+{% if shop.goods.all %}
+    <h5>{% trans 'Other goods' %}</h5>
+    <ul>
+    {% for good in shop.get_goods_no_sales.all %}
+        <li>
+            {{ good.name }} - {{ good.price }}$
+            <a href="{% url 'buy_url' good.id %}">{% trans 'Buy it' %}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
