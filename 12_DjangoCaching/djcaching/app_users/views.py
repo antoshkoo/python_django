@@ -5,14 +5,16 @@ from django.shortcuts import render, redirect
 
 from django.views import View
 
-from app_shops.models import Shop
 from .forms import UserRegisterForm
 
 
 class UserRegisterView(View):
     def get(self, request):
-        form = UserRegisterForm
-        return render(request, 'users/register.html', context={'form': form})
+        if request.user.username:
+            return redirect('user_profile_url')
+        else:
+            form = UserRegisterForm
+            return render(request, 'users/register.html', context={'form': form})
 
     def post(self, request):
         form = UserRegisterForm(request.POST)
@@ -27,14 +29,15 @@ class UserRegisterView(View):
 
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
-    redirect_authenticated_user = False
+    redirect_authenticated_user = True
 
 
 class UserLogoutView(LoginRequiredMixin, LogoutView):
-    next_page = 'user_register_url'
+    next_page = 'main_page_url'
 
 
 class UserProfileView(LoginRequiredMixin, View):
+    login_url = 'user_login_url'
+
     def get(self, request):
-        shops = Shop.objects.all()
-        return render(request, 'users/profile.html', context={'shops': shops})
+        return render(request, 'users/profile.html')

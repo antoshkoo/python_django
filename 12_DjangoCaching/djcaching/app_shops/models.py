@@ -50,4 +50,5 @@ class Order(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user, self.good.name, self.price_order, self.date.strftime('%d.%m.%Y')
+        time = self.date.strftime('%d.%m.%Y')
+        return f'{self.user}, {self.good.name}, {self.price_order} - {time}'

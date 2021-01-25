@@ -9,10 +9,11 @@
         <p><a href="{% url 'main_page_url' %}">{% trans 'View offers' %}</a></p>
     </div>
 
+    {% if user.orders.all %}
     <div>
         <h2>{% trans 'Shopping history' %}</h2>
         <table border="1">
-        {% cache 600 shopping_history %}
+        {% cache 600 history user.username %}
         {% for order in user.orders.all %}
             <tr>
                 <td>{{ order.price_order }}</td>
@@ -23,4 +24,5 @@
         {% endcache %}
         </table>
     </div>
+    {% endif %}
 {% endblock %}

@@ -127,4 +127,5 @@ LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale'), ]
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 LOGIN_REDIRECT_URL = 'user_profile_url'
+LOGIN_URL = 'login_url'
 STATIC_URL = '/static/'
