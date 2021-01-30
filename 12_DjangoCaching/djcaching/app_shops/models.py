@@ -10,16 +10,19 @@ class Shop(models.Model):
         return self.name
 
     def get_goods_sales(self):
-        return self.sale_set.filter(shop_id=self.id)
+        return self.sale_set.filter(shop_id=self.id).select_related('good')
 
     def get_goods_no_sales(self):
-        return self.goods.filter(sales__sale_price=None)
+        return self.goods.filter()
 
 
 class Good(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE, related_name='goods')
     name = models.CharField(max_length=100)
     price = models.FloatField(default=0, verbose_name=_('Price'))
+
+    class Meta:
+        unique_together = ('shop', 'name')
 
     def __str__(self):
         return f'{self.name} ({self.shop.name})'
@@ -29,6 +32,9 @@ class Sale(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     good = models.ForeignKey(Good, on_delete=models.CASCADE, related_name='sales')
     sale_price = models.FloatField(default=0, verbose_name=_('Sale price'))
+
+    class Meta:
+        unique_together = ('shop', 'good')
 
     def __str__(self):
         return f'{self.good.name} - {self.good.price} ({self.sale_price})'
@@ -45,10 +51,15 @@ class Promotion(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     good = models.ForeignKey(Good, on_delete=models.CASCADE)
     price_order = models.FloatField(default=0)
     date = models.DateTimeField(auto_now_add=True)
+    quantity = models.PositiveIntegerField(default=1, verbose_name=_('Quantity'))
 
     def __str__(self):
         time = self.date.strftime('%d.%m.%Y')
         return f'{self.user}, {self.good.name}, {self.price_order} - {time}'
+
+    def total_cost(self):
+        return self.price_order * self.quantity

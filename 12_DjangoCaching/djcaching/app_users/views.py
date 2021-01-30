@@ -1,30 +1,23 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 
-from django.views import View
+from django.views.generic import ListView, CreateView
 
+from app_shops.models import Order
 from .forms import UserRegisterForm
 
 
-class UserRegisterView(View):
-    def get(self, request):
-        if request.user.username:
-            return redirect('user_profile_url')
-        else:
-            form = UserRegisterForm
-            return render(request, 'users/register.html', context={'form': form})
+class UserRegisterView(CreateView):
+    template_name = 'users/register.html'
+    form_class = UserRegisterForm
+    success_url = reverse_lazy('user_profile_url')
 
-    def post(self, request):
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('user_profile_url')
+    def form_valid(self, form):
+        valid = super().form_valid(form)
+        login(self.request, self.object)
+        return valid
 
 
 class UserLoginView(LoginView):
@@ -36,8 +29,16 @@ class UserLogoutView(LoginRequiredMixin, LogoutView):
     next_page = 'main_page_url'
 
 
-class UserProfileView(LoginRequiredMixin, View):
+class UserProfileView(LoginRequiredMixin, ListView):
     login_url = 'user_login_url'
+    template_name = 'users/profile.html'
+    context_object_name = 'orders'
 
-    def get(self, request):
-        return render(request, 'users/profile.html')
+    def get_queryset(self):
+        queryset = Order.objects.filter(user=self.request.user).select_related('good', 'shop')
+
+        shop_filter = self.request.GET.get('shop', False)
+        if shop_filter:
+            queryset = queryset.filter(shop_id=shop_filter)
+
+        return queryset

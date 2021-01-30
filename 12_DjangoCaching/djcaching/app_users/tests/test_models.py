@@ -3,7 +3,7 @@ from django.test import TestCase
 
 from app_users.models import Profile
 
-LOAD_DATA = ['users_data.json', 'profile_data.json', 'shops_data.json']
+LOAD_DATA = ['initial_data.json']
 
 
 class TestProfileModel(TestCase):

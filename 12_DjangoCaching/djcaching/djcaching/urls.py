@@ -16,9 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from djcaching import settings
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('app_users.urls')),
     path('i18n', include('django.conf.urls.i18n')),
     path('', include('app_shops.urls')),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]

@@ -1,0 +1,192 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 22:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: app_shops/models.py:7
+msgid "Shop name"
+msgstr "Название магазина"
+
+#: app_shops/models.py:22
+msgid "Price"
+msgstr "Цена"
+
+#: app_shops/models.py:34
+msgid "Sale price"
+msgstr "Цена со скидкой"
+
+#: app_shops/models.py:45
+msgid "Title"
+msgstr "Заголовок"
+
+#: app_shops/models.py:46
+msgid "Description"
+msgstr "Описание"
+
+#: app_shops/models.py:58 templates/shops/shop_detail.html:24
+#: templates/shops/shop_detail.html:40 templates/users/profile.html:18
+msgid "Quantity"
+msgstr "Количество"
+
+#: app_shops/views.py:51
+msgid "Please charge your balance!"
+msgstr "Пожалуйста, пополните баланс!"
+
+#: app_shops/views.py:62
+msgid "Thank you for order!"
+msgstr "Спасибо за ваш заказ"
+
+#: app_shops/views.py:75
+msgid "Your order was refused! Order's amount was return on your balance"
+msgstr "Ваш заказ отменен! Сумма заказа вернется на ваш баланс"
+
+#: app_shops/views.py:78
+msgid "Order not found"
+msgstr "Заказ не найден"
+
+#: app_users/models.py:10
+msgid "balance"
+msgstr "баланс"
+
+#: templates/base.html:14
+msgid "Profile"
+msgstr "Профиль"
+
+#: templates/base.html:15
+msgid "Welcome"
+msgstr "Добро пожаловать"
+
+#: templates/base.html:16
+msgid "Balance"
+msgstr "Баланс"
+
+#: templates/base.html:17
+msgid "Logout"
+msgstr "Выйти"
+
+#: templates/base.html:19 templates/main.html:14
+#: templates/users/register.html:8
+msgid "Sign up"
+msgstr "Зарегистрироваться"
+
+#: templates/base.html:20 templates/main.html:13 templates/users/login.html:4
+#: templates/users/login.html:5 templates/users/login.html:10
+msgid "Sign in"
+msgstr "Войти"
+
+#: templates/base.html:35
+msgid "Select"
+msgstr "Выбрать"
+
+#: templates/main.html:5 templates/main.html:6 templates/users/profile.html:4
+#: templates/users/profile.html:5
+msgid "Loyalty program"
+msgstr "Программа лояльности"
+
+#: templates/main.html:13
+msgid "or"
+msgstr "или"
+
+#: templates/main.html:14
+msgid "for view offers"
+msgstr "чтобы увидеть все предложения"
+
+#: templates/shops/shop_detail.html:9
+msgid "Special offer"
+msgstr "Спецпредложения"
+
+#: templates/shops/shop_detail.html:13
+msgid "No promotions"
+msgstr "Нет спецпредложений"
+
+#: templates/shops/shop_detail.html:16
+msgid "Sales"
+msgstr "Распродажа"
+
+#: templates/shops/shop_detail.html:25 templates/shops/shop_detail.html:41
+msgid "Buy it"
+msgstr "Купить"
+
+#: templates/shops/shop_detail.html:29
+#, fuzzy
+#| msgid "Sales"
+msgid "No sales"
+msgstr "Нет распродаж"
+
+#: templates/shops/shop_detail.html:33
+msgid "Other goods"
+msgstr "Прочие товары"
+
+#: templates/shops/shop_detail.html:45
+#, fuzzy
+#| msgid "Other goods"
+msgid "No goods"
+msgstr "Нет товаров"
+
+#: templates/shops/shop_detail.html:48
+msgid "Back to shop list"
+msgstr "Вернуться к магазинам"
+
+#: templates/shops/shop_list.html:3
+msgid "Our shops"
+msgstr "Магазины"
+
+#: templates/shops/shop_list.html:10 templates/users/profile.html:9
+msgid "View offers"
+msgstr "Посмотреть предложения"
+
+#: templates/users/profile.html:13
+msgid "Shopping history"
+msgstr "История покупок"
+
+#: templates/users/profile.html:16
+msgid "Shop"
+msgstr "Магазин"
+
+#: templates/users/profile.html:17
+msgid "Good"
+msgstr "Товар"
+
+#: templates/users/profile.html:19
+msgid "Item cost"
+msgstr "шт."
+
+#: templates/users/profile.html:20
+msgid "Total cost"
+msgstr "Итого"
+
+#: templates/users/profile.html:21
+msgid "Date"
+msgstr "Дата"
+
+#: templates/users/profile.html:22
+msgid "Get back"
+msgstr "Возврат"
+
+#: templates/users/profile.html:36
+msgid "Refuse"
+msgstr "Вернуть"
+
+#: templates/users/register.html:3 templates/users/register.html:4
+msgid "Register"
+msgstr "Зарегистрироваться"
+
+#~ msgid "Good unavailable!"
+#~ msgstr "Товар недоступен!"

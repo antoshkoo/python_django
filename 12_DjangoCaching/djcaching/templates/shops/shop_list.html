@@ -1,0 +1,15 @@
+{% load i18n %}
+{% load cache %}
+<h2>{% trans 'Our shops' %}</h2>
+{% cache 1 main_shops_cache %}
+    <div class="goods">
+    {% for shop in shops %}
+        <div>
+            <h4>{{ shop.name }}</h4>
+            {% if user.username %}
+                <a href="{% url 'shop_detail_url' shop.id %}">{% trans 'View offers' %}</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+{% endcache %}

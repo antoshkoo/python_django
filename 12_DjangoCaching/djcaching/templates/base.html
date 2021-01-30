@@ -1,10 +1,12 @@
 {% load i18n %}
+{% load static %}
 <!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
 <header>
@@ -34,9 +36,10 @@
         </form>
     </div>
 </header>
-    <h1>{% block h1 %}{% endblock %}</h1>
+<h1>{% block h1 %}{% endblock %}</h1>
 
 {% block content %}
 {% endblock %}
+
 </body>
 </html>

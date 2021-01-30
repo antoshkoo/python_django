@@ -8,17 +8,34 @@
     <div>
         <p><a href="{% url 'main_page_url' %}">{% trans 'View offers' %}</a></p>
     </div>
-
-    {% if user.orders.all %}
+    {% if orders %}
     <div>
         <h2>{% trans 'Shopping history' %}</h2>
-        <table border="1">
-        {% cache 600 history user.username %}
-        {% for order in user.orders.all %}
+        <table>
             <tr>
-                <td>{{ order.price_order }}</td>
+                <th>{% trans 'Shop' %}</th>
+                <th>{% trans 'Good' %}</th>
+                <th>{% trans 'Quantity' %}</th>
+                <th>{% trans 'Item cost' %}</th>
+                <th>{% trans 'Total cost' %}</th>
+                <th>{% trans 'Date' %}</th>
+                <th>{% trans 'Get back' %}</th>
+            </tr>
+        {% cache 300 order_history user.username %}
+        {% for order in orders %}
+            <tr>
+                <td><a href="?shop={{ order.shop.id }}">{{ order.shop.name }}</a></td>
                 <td>{{ order.good.name }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.price_order }}$</td>
+                <td>{{ order.total_cost }}$</td>
                 <td>{{ order.date }}</td>
+                <td>
+                    <form action="{% url 'refuse_url' %}" method="post">{% csrf_token %}
+                        <input type="hidden" name="order" value="{{ order.id }}">
+                        <button type="submit">{% trans 'Refuse' %}</button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
         {% endcache %}

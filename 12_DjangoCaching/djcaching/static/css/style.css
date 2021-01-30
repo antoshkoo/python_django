@@ -1,0 +1,37 @@
+h4 {
+        margin: 0 0 10px;
+    }
+    .goods {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .goods div {
+        text-align: center;
+        margin: 5px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+    .goods div.sale {
+        border: 1px solid red;
+    }
+    .promotion {
+        display: inline-block;
+        margin: 0 5px;
+        padding: 10px;
+        border: 1px red dotted;
+    }
+    table {
+        border-collapse: collapse;
+    }
+
+    td, th {
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        mso-cellspacing: 0;
+    }
+    th {
+        font-weight: 700;
+        padding: 10px;
+        background: #e8e8e8;
+    }

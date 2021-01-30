@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load cache %}
+
+{% block title %}{{ shop.name }}{% endblock %}
+{% block h1 %}{{ shop.name }}{% endblock %}
+
+{% block content %}
+    <h2>{% trans 'Special offer' %}</h2>
+    {% for promotion in promotions %}
+        <div class="promotion">{{ promotion.title }}</div>
+        {% empty %}
+        {% trans 'No promotions' %}
+    {% endfor %}
+
+    <h2>{% trans 'Sales' %}</h2>
+    <div class="goods">
+    {% for sale in sales %}
+        <div class="sale">
+            {{ sale.good.name }}
+            <strike>{{ sale.good.price }}</strike> - {{ sale.sale_price }}$
+            <form action="{% url 'buy_url' %}" method="post">{% csrf_token %}
+                <input name="good_id" type="hidden" value="{{ sale.good.id }}">
+                <label for="quantity">{% trans 'Quantity' %}: </label><input type="text" size="3" name="quantity" value="1">
+                <button type="submit">{% trans 'Buy it' %}</button>
+            </form>
+        </div>
+        {% empty %}
+        {% trans 'No sales' %}
+    {% endfor %}
+    </div>
+
+    <h2>{% trans 'Other goods' %}</h2>
+    <div class="goods">
+    {% for good in goods %}
+        <div>
+            {{ good.name }} - {{ good.price }}$
+            <form action="{% url 'buy_url' %}" method="post">{% csrf_token %}
+                <input name="good_id" type="hidden" value="{{ good.id }}">
+                <label for="quantity">{% trans 'Quantity' %}: </label><input type="text" size="3" name="quantity" value="1">
+                <button type="submit">{% trans 'Buy it' %}</button>
+            </form>
+        </div>
+        {% empty %}
+        {% trans 'No goods' %}
+    {% endfor %}
+    </div>
+    <div><a href="{% url 'main_page_url' %}">{% trans 'Back to shop list' %}</a></div>
+{% endblock %}

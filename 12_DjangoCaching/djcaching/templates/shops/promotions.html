@@ -1,9 +1,0 @@
-{% load i18n %}
-{% if shop.promotions.all %}
-    <h5>{% trans 'Special offer' %}</h5>
-    <ol>
-    {% for promotion in shop.promotions.all  %}
-        <li>{{ promotion.title }}</li>
-    {% endfor %}
-    </ol>
-{% endif %}
