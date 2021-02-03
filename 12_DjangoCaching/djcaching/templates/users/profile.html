@@ -11,7 +11,11 @@
     {% if orders %}
     <div>
         <h2>{% trans 'Shopping history' %}</h2>
+
+        {% if 'shop' in request.get_full_path %}
         <p><a href="{% url 'user_profile_url' %}">Все покупки</a></p>
+        {% endif %}
+
         <table>
             <tr>
                 <th>{% trans 'Shop' %}</th>

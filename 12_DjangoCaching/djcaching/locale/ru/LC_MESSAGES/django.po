@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-30 22:23+0000\n"
+"POT-Creation-Date: 2021-02-03 19:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,44 +20,44 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: app_shops/models.py:7
+#: app_shops/models.py:11
 msgid "Shop name"
 msgstr "Название магазина"
 
-#: app_shops/models.py:22
+#: app_shops/models.py:31
 msgid "Price"
 msgstr "Цена"
 
-#: app_shops/models.py:34
+#: app_shops/models.py:43
 msgid "Sale price"
 msgstr "Цена со скидкой"
 
-#: app_shops/models.py:45
+#: app_shops/models.py:54
 msgid "Title"
 msgstr "Заголовок"
 
-#: app_shops/models.py:46
+#: app_shops/models.py:55
 msgid "Description"
 msgstr "Описание"
 
-#: app_shops/models.py:58 templates/shops/shop_detail.html:24
-#: templates/shops/shop_detail.html:40 templates/users/profile.html:18
+#: app_shops/models.py:67 templates/shops/shop_detail.html:24
+#: templates/shops/shop_detail.html:40 templates/users/profile.html:23
 msgid "Quantity"
 msgstr "Количество"
 
-#: app_shops/views.py:51
+#: app_shops/views.py:56
 msgid "Please charge your balance!"
 msgstr "Пожалуйста, пополните баланс!"
 
-#: app_shops/views.py:62
+#: app_shops/views.py:68
 msgid "Thank you for order!"
 msgstr "Спасибо за ваш заказ"
 
-#: app_shops/views.py:75
+#: app_shops/views.py:82
 msgid "Your order was refused! Order's amount was return on your balance"
 msgstr "Ваш заказ отменен! Сумма заказа вернется на ваш баланс"
 
-#: app_shops/views.py:78
+#: app_shops/views.py:85
 msgid "Order not found"
 msgstr "Заказ не найден"
 
@@ -125,8 +125,6 @@ msgid "Buy it"
 msgstr "Купить"
 
 #: templates/shops/shop_detail.html:29
-#, fuzzy
-#| msgid "Sales"
 msgid "No sales"
 msgstr "Нет распродаж"
 
@@ -135,8 +133,6 @@ msgid "Other goods"
 msgstr "Прочие товары"
 
 #: templates/shops/shop_detail.html:45
-#, fuzzy
-#| msgid "Other goods"
 msgid "No goods"
 msgstr "Нет товаров"
 
@@ -156,31 +152,31 @@ msgstr "Посмотреть предложения"
 msgid "Shopping history"
 msgstr "История покупок"
 
-#: templates/users/profile.html:16
+#: templates/users/profile.html:21
 msgid "Shop"
 msgstr "Магазин"
 
-#: templates/users/profile.html:17
+#: templates/users/profile.html:22
 msgid "Good"
 msgstr "Товар"
 
-#: templates/users/profile.html:19
+#: templates/users/profile.html:24
 msgid "Item cost"
 msgstr "шт."
 
-#: templates/users/profile.html:20
+#: templates/users/profile.html:25
 msgid "Total cost"
 msgstr "Итого"
 
-#: templates/users/profile.html:21
+#: templates/users/profile.html:26
 msgid "Date"
 msgstr "Дата"
 
-#: templates/users/profile.html:22
+#: templates/users/profile.html:27
 msgid "Get back"
 msgstr "Возврат"
 
-#: templates/users/profile.html:36
+#: templates/users/profile.html:42
 msgid "Refuse"
 msgstr "Вернуть"
 
