@@ -1,5 +1,9 @@
 from django.contrib.auth.models import User
+from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 
@@ -9,11 +13,16 @@ class Shop(models.Model):
     def __str__(self):
         return self.name
 
-    def get_goods_sales(self):
-        return self.sale_set.filter(shop_id=self.id).select_related('good')
 
-    def get_goods_no_sales(self):
-        return self.goods.filter()
+@receiver(post_save, sender=Shop)
+def create_shop(sender, instance, created, **kwargs):
+    if created:
+        cache.delete(make_template_fragment_key('main_shops_cache'))
+
+
+@receiver(post_save, sender=Shop)
+def save_shop(sender, instance, **kwargs):
+    cache.delete(make_template_fragment_key('main_shops_cache'))
 
 
 class Good(models.Model):

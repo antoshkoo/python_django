@@ -11,6 +11,7 @@
     {% if orders %}
     <div>
         <h2>{% trans 'Shopping history' %}</h2>
+        <p><a href="{% url 'user_profile_url' %}">Все покупки</a></p>
         <table>
             <tr>
                 <th>{% trans 'Shop' %}</th>
@@ -21,7 +22,8 @@
                 <th>{% trans 'Date' %}</th>
                 <th>{% trans 'Get back' %}</th>
             </tr>
-        {% cache 300 order_history user.username %}
+
+{#        {% cache 300 order_history user.username shop.id %}#}
         {% for order in orders %}
             <tr>
                 <td><a href="?shop={{ order.shop.id }}">{{ order.shop.name }}</a></td>
@@ -38,7 +40,7 @@
                 </td>
             </tr>
         {% endfor %}
-        {% endcache %}
+{#        {% endcache %}#}
         </table>
     </div>
     {% endif %}

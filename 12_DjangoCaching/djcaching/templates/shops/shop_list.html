@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load cache %}
 <h2>{% trans 'Our shops' %}</h2>
-{% cache 1 main_shops_cache %}
+{% cache 300 main_shops_cache %}
     <div class="goods">
     {% for shop in shops %}
         <div>

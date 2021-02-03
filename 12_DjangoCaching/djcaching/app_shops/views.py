@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -25,9 +26,13 @@ class ShopDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         shop = context['shop']
 
-        goods = cache.get_or_set(f'goods {shop.id}', Good.objects.filter(shop_id=shop.id, sales__sale_price=None), 600)
-        sales = cache.get_or_set(f'sales {shop.id}', Sale.objects.filter(shop_id=shop.id).select_related('good'), 600)
-        promotions = cache.get_or_set(f'promotions {shop.id}', Promotion.objects.filter(shop_id=shop.id), 600)
+        # goods = cache.get_or_set(f'goods {shop.id}', Good.objects.filter(shop_id=shop.id, sales__sale_price=None), 0)
+        # sales = cache.get_or_set(f'sales {shop.id}', Sale.objects.filter(shop_id=shop.id).select_related('good'), 0)
+        # promotions = cache.get_or_set(f'promotions {shop.id}', Promotion.objects.filter(shop_id=shop.id), 0)
+
+        goods = Good.objects.filter(shop_id=shop.id, sales__sale_price=None)
+        sales = Sale.objects.filter(shop_id=shop.id).select_related('good')
+        promotions = Promotion.objects.filter(shop_id=shop.id)
 
         context['goods'] = goods
         context['sales'] = sales
@@ -59,19 +64,21 @@ class BuyView(LoginRequiredMixin, View):
                                  quantity=int(obj['quantity']),
                                  shop_id=good.shop_id,
                                  )
+            cache.delete(make_template_fragment_key('order_history', [request.user.username]))
             return HttpResponse(_(f'Thank you for order!') +
-                                f' <a href="{reverse("user_profile_url")}">Go to profile</a>')
+                                f' <a href="{reverse("shop_detail_url", args=[good.shop_id])}">Go to shop</a>')
 
 
 class RefuseView(LoginRequiredMixin, View):
     def post(self, request):
         obj = request.POST
-        order = get_object_or_404(Order, pk=obj['order'])
+        order = get_object_or_404(Order, pk=obj['order'], user_id=request.user)
 
-        if order.user == request.user:
+        if order:
             request.user.profile.balance += order.total_cost()
             request.user.save()
             order.delete()
+            cache.delete(make_template_fragment_key('order_history', [request.user.username]))
             return HttpResponse(_(f'Your order was refused! Order\'s amount was return on your balance') +
                                 f' <a href="{reverse("user_profile_url")}">Go to profile</a>')
         else:

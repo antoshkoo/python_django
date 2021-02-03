@@ -1,6 +1,8 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 from django.urls import reverse_lazy
 
 from django.views.generic import ListView, CreateView
@@ -41,4 +43,5 @@ class UserProfileView(LoginRequiredMixin, ListView):
         if shop_filter:
             queryset = queryset.filter(shop_id=shop_filter)
 
+        # cache.delete(make_template_fragment_key('order_history', [self.request.user.username]))
         return queryset
