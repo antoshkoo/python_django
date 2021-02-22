@@ -1,14 +1,14 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 
 from app_users.forms import CustomUserCreationForm, CustomUserChangeForm
 from app_users.models import CustomUser
-from app_users.utils import sending_calc, check_recipients
+from app_users.utils import sending_calc
 
 
 class UserRegisterView(CreateView):
@@ -35,20 +35,18 @@ class MainPageView(TemplateView):
     template_name = 'main.html'
 
 
-class UserProfileView(LoginRequiredMixin, View):
-    def get(self, request):
-        form = CustomUserChangeForm(instance=request.user)
-        return render(request, 'users/profile.html', {'form': form})
+class UserProfileView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    form_class = CustomUserChangeForm
+    template_name = 'users/profile.html'
 
-    def post(self, request):
-        if request.method == 'POST':
-            form = CustomUserChangeForm(instance=request.user, data=request.POST)
-            if form.is_valid():
-                form.save()
-        return redirect('user_profile_url')
+    def get_object(self):
+        return self.request.user
 
 
 class MoneySendView(LoginRequiredMixin, View):
+    http_method_names = ['get', 'post']
+
     def post(self, request):
         if request.user.is_staff:
             sender_tin = request.POST['sender']
@@ -56,16 +54,11 @@ class MoneySendView(LoginRequiredMixin, View):
         else:
             sender = request.user
 
-        amount = float(request.POST['sum'])  # проверка на число реализована в input pattern
+        amount = request.POST['sum']  # проверка на число реализована в input pattern
         recipients = request.POST.getlist('recipients')
+        cashflow = sending_calc(sender=sender, amount=amount, recipients=recipients)
 
-        status_recipients = check_recipients(recipients=recipients, sender=sender)
-
-        if status_recipients is True:
-            cashflow = sending_calc(sender=sender, amount=amount, recipients=recipients)
-            return render(request, 'success.html', context={'content': cashflow})
-        else:
-            return render(request, 'success.html', context={'content': status_recipients})
+        return render(request, 'success.html', context={'content': cashflow})
 
     def get(self, request):
         if request.user.is_staff:
@@ -73,5 +66,5 @@ class MoneySendView(LoginRequiredMixin, View):
             recipients = CustomUser.objects.all().exclude(id__exact=request.user.id)
             return render(request, 'send.html', context={'recipients_list': recipients, 'senders_list': senders})
         else:
-            recipients = CustomUser.objects.all().filter(is_staff=False).exclude(id__exact=request.user.id)
+            recipients = CustomUser.objects.filter(is_staff=False).exclude(id__exact=request.user.id)
             return render(request, 'send.html', context={'recipients_list': recipients})

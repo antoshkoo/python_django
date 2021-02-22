@@ -1,30 +1,20 @@
 from decimal import Decimal, ROUND_DOWN
 
+from django.db.models import F
+
 from app_users.models import CustomUser
 
 
-def check_recipients(recipients, sender):
+def sending_calc(sender, amount, recipients):
+    amount = float(amount)
     if sender.tin in recipients:
         return {'status': 'You can\'t send money to yourself'}
     elif len(recipients) != len(set(recipients)):
         return {'status': 'TIN duplicated in recipients list'}
-    else:
-        unavailable_list = []
-
-        for recipient in recipients:
-            if CustomUser.objects.filter(tin=recipient).exists() is False:
-                unavailable_list.append(recipient)
-
-        if len(unavailable_list) > 0:
-            return {'status': f'Recipient not found - {unavailable_list}'}
-        else:
-            return True
-
-
-def sending_calc(sender, amount, recipients):
-    if sender.balance < amount:
+    elif sender.balance < amount:
         return {'status': 'Please charge balance'}
-
+    elif CustomUser.objects.filter(tin__in=recipients).exists() is False:
+        return {'status': 'One or more recipient not found'}
     else:
         total_recipients = len(recipients)
         personal_sum = Decimal(str(amount / total_recipients)).quantize(Decimal("1.00"), ROUND_DOWN)
@@ -32,13 +22,8 @@ def sending_calc(sender, amount, recipients):
         new_balance = sender.balance - total_sum
         charge_back = Decimal(str(amount)) - total_sum
 
-        for recipient in recipients:
-            recipient = CustomUser.objects.get(tin=recipient)
-            recipient.balance += personal_sum
-            recipient.save()
-
-        sender.balance = new_balance
-        sender.save()
+        CustomUser.objects.filter(tin__in=recipients).update(balance=F('balance') + personal_sum)
+        CustomUser.objects.filter(tin=sender.tin).update(balance=new_balance)
 
         return {
             'status': 'Money was send',
@@ -46,4 +31,5 @@ def sending_calc(sender, amount, recipients):
             'total_sum': total_sum,
             'balance': new_balance,
             'charge_back': charge_back,
+            'success': True
         }
