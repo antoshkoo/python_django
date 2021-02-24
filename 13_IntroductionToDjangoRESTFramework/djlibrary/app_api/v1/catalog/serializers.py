@@ -1,4 +1,4 @@
-from django.db.models import Avg, Count, Sum
+from django.db.models import Sum
 from rest_framework import serializers
 
 from app_catalog.models import Author, Book
