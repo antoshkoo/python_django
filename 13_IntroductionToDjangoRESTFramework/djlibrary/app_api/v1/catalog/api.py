@@ -31,7 +31,7 @@ class BookViewSet(viewsets.ModelViewSet):
     search_fields = ['title']
 
     def get_queryset(self):
-        queryset = Book.objects.all().order_by('pk')
+        queryset = Book.objects.filter(is_active=True).order_by('pk')
         filter_author = self.request.query_params.get('author')
         filter_pages = self.request.query_params.get('pages')
         filter_pages_params = self.request.query_params.get('filter')

@@ -21,6 +21,12 @@ class Book(models.Model):
     published = models.DateField(default=datetime.date.today)
     pages = models.PositiveSmallIntegerField(default=0)
     author = models.ManyToManyField(Author, blank=True, related_name='books')
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
+
+    def set_active(self):
+        self.is_active = not self.is_active
+        self.save()
+        return self.is_active
