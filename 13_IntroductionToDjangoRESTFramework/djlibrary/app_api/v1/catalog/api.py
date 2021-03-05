@@ -1,6 +1,8 @@
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, status
+from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser
+from rest_framework.response import Response
 
 from app_api.v1.catalog.permissions import ReadOnly
 from app_api.v1.catalog.serializers import AuthorSerializer, BookSerializer
@@ -29,6 +31,16 @@ class BookViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser | ReadOnly]
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
+
+    @action(detail=True, methods=['post'])
+    def set_active(self, request, pk=None):
+        book = self.get_object()
+        book.set_active()
+        book.save()
+        return Response({'status': f'Active status was changed'})
+        # else:
+        #     return Response(serializer.errors,
+        #                     status=status.HTTP_400_BAD_REQUEST)
 
     def get_queryset(self):
         queryset = Book.objects.filter(is_active=True).order_by('pk')
